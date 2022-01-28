@@ -6,35 +6,37 @@ import java.util.Scanner;
 
 public class PersonService {
     private final List<Person> persons = new ArrayList<>();
+    private int currentId;
 
     public PersonService (List<Person> persons) {
+        this.currentId = 0;
         if (persons != null) {
-            this.persons.addAll(persons);
+            for (Person person : persons){
+                this.addPerson(person);
+            }
         }
     }
-     //persoana primita NU are ID, is e va genera dupa adaugare. Persoana returnata are id-ul setat
-//    public Person addPerson (Person person) {
-//        Scanner scanner = new Scanner(System.in);
-//        person.getId()= scanner.nextInt();
-//
-//        persons.add(person);
-//        return person;
-//    }
+     //persoana primita NU are ID, isi va genera dupa adaugare. Persoana returnata are id-ul setat
+    public Person addPerson (Person person) {
+        persons.add(person);
+        person.setId(++currentId);
+        return person;
+    }
 
     // sterge persoana cu id-ul respectiv si o returneaza. Arunca exceptie (unchecked) daca nu exista
     public Person removePerson (int id) throws IllegalArgumentException, MyUncheckedException {
-        if (id <= 0) {
-            throw new IllegalArgumentException("A negative or 0 id is not accepted!");
-        }
+        Person result = null; //e null acum
         for (Person person : persons) {
             if (person.getId() == id) {
+                result = person;
                 persons.remove(person);
-                return person;
-            } else {
-                throw new MyUncheckedException("This person doesn't exist!");
+                break;
             }
         }
-        return null;
+        if (result == null) {
+            throw new MyUncheckedException("This person doesn't exist!");
+        }
+        return result;
     }
 
     public List<Person> getAllPersons() {
@@ -54,6 +56,7 @@ public class PersonService {
         }
         return result;
     }
+
     public List<String> getAllPersonsNames() {
         List<String> result = new ArrayList<>();
         for (Person person : persons) {
@@ -73,6 +76,7 @@ public class PersonService {
         }
         return null;
     }
+
     public Person getPersonById(int id) { //nu poate fi null
         for (Person person : persons) {
             if (person.getId() == id){

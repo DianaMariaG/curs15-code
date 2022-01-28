@@ -1,6 +1,7 @@
 package ro.fasttrackit.curs15.homework.ex2;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -8,40 +9,56 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersonTest {
     @Test
-    @DisplayName("WHEN null or empty name THEN return n/a")
+    @DisplayName("WHEN null or empty name THEN throw exception")
+    public void testGetNullOrEmptyName() {
+
+        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class,
+                () -> new Person("",22));
+        assertThat(exc.getMessage()).isEqualTo("Name is not valid!");
+        }
+
+    @Test
+    @DisplayName("WHEN name is given THEN return it")
     public void testGetName() {
         //SETUP
-        Person person1 = new Person(1, null, 13);
-        Person person2 = new Person(2, "", 44);
+        Person person1 = new Person("Rose",12);
         //RUN
-        String result1 = person1.getName();
-        String result2 = person2.getName();
+        String actual = person1.getName();
         //ASSERT
-        assertThat(result1).isEqualTo("n/a");
-        assertThat(result2).isEqualTo("n/a");
+        assertThat(actual).isEqualTo("Rose");
     }
 
     @Test
-    @DisplayName("WHEN invalid age THEN return 1")
+    @DisplayName("WHEN invalid age THEN throw exception")
+    public void testGetInvalidAge() {
+
+        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class,
+                () -> new Person("Ana",133));
+        assertThat(exc.getMessage()).isEqualTo("Age is not valid!");
+    }
+
+    @Test
+    @DisplayName("WHEN valid age is given THEN return age")
     public void testGetAge() {
         //SETUP
-        Person person1 = new Person(1, "Ana", 133);
-        //RUN + ASSERT
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class,
-                () -> person1.getAge());
-        assertThat(exc.getMessage()).isEqualTo("Age is not valid");
+        Person person1 = new Person("Rose",12);
+        //RUN
+        int actual = person1.getAge();
+        //ASSERT
+        assertThat(actual).isEqualTo(12);
     }
 
     @Test
-    @DisplayName("WHEN negative id THEN return 0")
+    @DisplayName("WHEN id is set THEN return id")
     public void testGetId() {
         //SETUP
-        Person person1 = new Person(-6, "Ana", 13);
+        Person person1 = new Person("Rose",12);
+        person1.setId(1);
+        Person person2 = new Person("Christine",89);
+        person2.setId(2);
         //RUN
-        int actual = person1.getId();
+        int actual = person2.getId();
         //ASSERT
-        assertThat(actual).isEqualTo(0);
+        assertThat(actual).isEqualTo(2);
     }
-
-
 }
