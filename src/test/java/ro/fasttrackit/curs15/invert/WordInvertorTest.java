@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class QordInvertorTest {
+public class WordInvertorTest {
     WordInvertor wordInvertor;
 
     @BeforeEach

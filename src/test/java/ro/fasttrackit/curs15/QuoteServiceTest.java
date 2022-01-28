@@ -67,7 +67,7 @@ public class QuoteServiceTest {
     }
 
     @Test
-    @DisplayName("WHEN we have quotes for the requested author YHEN getQuotesForAuthor returns them all")
+    @DisplayName("WHEN we have quotes for the requested author THEN getQuotesForAuthor returns them all")
     void testQuotesForAuthor() {
         //SETUP
         QuoteService quoteService = new QuoteService(List.of(
