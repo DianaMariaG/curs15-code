@@ -144,7 +144,8 @@ public class PersonServiceTest {
         //RUN
         List<Person> actual = personService.getPersonsOlderThan(15);
         //ASSERT
-        Assertions.assertThat(actual).hasSize(2).containsExactlyInAnyOrder(tom, samuel);
+        Assertions.assertThat(actual).hasSize(2)
+                .containsExactlyInAnyOrder(tom, samuel);
     }
 
     @Test
